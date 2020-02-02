@@ -1,53 +1,57 @@
-var todoList = document.querySelector('ul');
-var input = document.getElementById('user-todo');
-var form = document.querySelector('form');
-var button = document.getElementById('clear');
-var rightButton = document.getElementById('line-through');
+const ulElement = document.querySelector("#todo-list");
 
-
-
-form.addEventListener('submit', function(e) {
+const form = document.querySelector('form');
+form.addEventListener('submit', function (e) {
     e.preventDefault();
-    todoMaker(input.value);
+    var input = document.getElementById('user-todo');
+    createTodoLiEl(input.value);
     input.value = '';
 });
 
-todoList.addEventListener('click', removeItem);
-
-var todoMaker = function(text) {
-    var todo = document.createElement('li');
-    todo.textContent = text;
-    todoList.appendChild(todo);
-    var deleteBtn = document.createElement('button');
-    todo.appendChild(deleteBtn);
-    deleteBtn.appendChild(document.createTextNode('X'));
-    var slashBtn = document.createElement('button');
-    todo.appendChild(slashBtn);
-    slashBtn.appendChild(document.createTextNode('-'));
-    slashBtn.addEventListener('click', lineThrough);
-
-}
-
-button.addEventListener('click', function() {
-    while (todoList.firstChild) {
-        todoList.removeChild(todoList.firstChild);
+const button = document.getElementById('clear');
+button.addEventListener('click', function () {
+    while (ulElement.firstChild) {
+        ulElement.removeChild(ulElement.firstChild);
     }
 });
 
-rightButton.addEventListener('click', lineThrough);
+const createTodoLiEl = function (text) {
+    var todoLil = document.createElement('li');
+    todoLil.textContent = text;
+    ulElement.appendChild(todoLil);
 
+    var deleteBtn = createDeleteButton();
+    todoLil.appendChild(deleteBtn)
 
-function lineThrough(a){
-    if(a.target.textContent.includes('-')){
-        var slash= a.target.parentElement;
-        slash.style.textDecoration = "line-through";
-    }
+    var slashBtn = createSlashButton()
+    todoLil.appendChild(slashBtn);
 }
 
-function removeItem(e){
-    if(e.target.textContent.includes('X')){
-        var li = e.target.parentElement;
-        todoList.removeChild(li);
-    }
+function createDeleteButton() {
+    const deleteBtn = document.createElement('button');
+    deleteBtn.appendChild(document.createTextNode('X'));
+    deleteBtn.addEventListener('click', function (e) {
+        if (e.target.textContent.includes('X')) {
+            var li = e.target.parentElement;
+            ulElement.removeChild(li);
+        }
+    });
+    return deleteBtn;
 }
 
+function createSlashButton() {
+    var slashBtn = document.createElement('button');
+    slashBtn.appendChild(document.createTextNode('-'));
+    slashBtn.addEventListener('click', function (e) {
+        if (e.target.textContent.includes('-')) {
+            var slash = e.target.parentElement;
+            if (slash.style.textDecoration === 'line-through') {
+                slash.style.textDecoration = 'none';
+            } else {
+                slash.style.textDecoration = 'line-through';
+            }
+        }
+    });
+
+    return slashBtn
+}
