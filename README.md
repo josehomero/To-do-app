@@ -6,7 +6,7 @@ A simple to-do app made up of HTML and JavaScript.
 
 Check it out https://josehomero.github.io/To-do-app/
 
-<img src="image/To-doListPic.png" alt="To-do pic">
+![To-doListPic](https://user-images.githubusercontent.com/58618050/74114249-d1ac6780-4b5d-11ea-8a88-d5c23bc86d9e.png)
 
 
 ## Summary
